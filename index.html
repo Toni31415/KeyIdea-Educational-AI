@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <meta name="description" content="KeyIdea educational AI assistant">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="stylesheet" href="./styles.css">
+    <title>KeyIdea — Educational AI</title>
+</head>
+<body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="app-shell">
+        <aside class="sidebar glass" id="sidebar" tabindex="-1">
+            <div class="brand">
+                <span class="idea-mark" aria-hidden="true"><i></i></span>
+                <span>KeyIdea</span>
+            </div>
+
+            <button class="new-chat" id="new-chat" type="button">
+                <span>＋</span>
+                New conversation
+            </button>
+
+            <nav aria-label="Main navigation">
+                <p class="eyebrow">Workspace</p>
+                <button class="nav-item active" type="button">
+                    <span>◫</span> Chat
+                </button>
+                <button class="nav-item disabled" type="button" disabled>
+                    <span>◷</span> History <small>Soon</small>
+                </button>
+                <button class="nav-item disabled" type="button" disabled>
+                    <span>◇</span> Saved notes <small>Soon</small>
+                </button>
+            </nav>
+
+            <section class="subjects">
+                <p class="eyebrow">Subjects</p>
+                <button class="subject active" type="button"
+                        data-subject="Mathematics" disabled>
+                    <span class="subject-dot"></span>
+                    <span>Mathematics</span>
+                    <small data-subject-status>Active</small>
+                </button>
+                <button class="subject muted" type="button"
+                        data-subject="Physics" disabled>
+                    <span class="subject-dot"></span>
+                    <span>Physics</span>
+                    <small data-subject-status>Soon</small>
+                </button>
+                <button class="subject muted" type="button"
+                        data-subject="Informatics" disabled>
+                    <span class="subject-dot"></span>
+                    <span>Informatics</span>
+                    <small data-subject-status>Soon</small>
+                </button>
+            </section>
+
+            <div class="privacy-badge">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>Private by design</strong>
+                    <p>Runs locally in your browser</p>
+                </div>
+            </div>
+        </aside>
+
+        <section class="chat-panel glass">
+            <header class="topbar">
+                <button class="mobile-button" id="open-navigation" type="button"
+                        aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
+                <div>
+                    <p class="eyebrow">Educational AI assistant</p>
+                    <h1 id="active-subject-title">Mathematics</h1>
+                </div>
+                <div class="model-pill loading" id="model-pill" role="status" aria-live="polite">
+                    <span class="status-dot"></span>
+                    <span id="model-status">Loading model</span>
+                </div>
+                <button class="retry-model" id="retry-model" type="button" hidden>
+                    Try again
+                </button>
+                <button class="mobile-button" id="open-details" type="button"
+                        aria-label="Open answer details" aria-controls="details" aria-expanded="false">ⓘ</button>
+            </header>
+
+            <div class="conversation" id="conversation" aria-live="polite"
+                 aria-relevant="additions text" aria-busy="false">
+                <section class="welcome" id="welcome">
+                    <div class="hero-mark idea-mark" aria-hidden="true"><i></i></div>
+                    <p class="eyebrow">Your next idea starts here</p>
+                    <h2>What would you like to know?</h2>
+                    <p class="welcome-copy" id="welcome-copy">
+                        Ask a mathematics question and receive a focused answer from a custom AI built from scratch in C++.
+                    </p>
+
+                    <div class="suggestions">
+                        <button type="button" data-question="What is a prime number">
+                            <span>What is a prime number</span><b>↗</b>
+                        </button>
+                        <button type="button" data-question="What is the area of a triangle">
+                            <span>What is the area of a triangle</span><b>↗</b>
+                        </button>
+                        <button type="button" data-question="Explain the difference between sine and cosine">
+                            <span>Difference between sine and cosine</span><b>↗</b>
+                        </button>
+                    </div>
+                </section>
+
+                <div class="message-list" id="message-list" hidden></div>
+            </div>
+
+            <form class="composer" id="composer">
+                <input id="question-input" type="text" autocomplete="off" maxlength="240"
+                       placeholder="Loading the KeyIdea model..." aria-label="Ask a question" disabled>
+                <button id="send-button" type="submit" aria-label="Send question" disabled>↑</button>
+                <small>KeyIdea can make mistakes. Check important results.</small>
+            </form>
+        </section>
+
+        <aside class="details glass" id="details" tabindex="-1">
+            <div class="details-heading">
+                <div>
+                    <p class="eyebrow">Response intelligence</p>
+                    <h2>Answer details</h2>
+                </div>
+                <button class="close-mobile" id="close-details" type="button" aria-label="Close details">×</button>
+            </div>
+
+            <div class="empty-details" id="empty-details">
+                <span class="detail-orbit" aria-hidden="true"></span>
+                <h3>Details will appear here</h3>
+                <p>Ask a question to see its detected topic, confidence and answer source.</p>
+            </div>
+
+            <div class="detail-content" id="detail-content" hidden>
+                <section class="topic-card">
+                    <span class="topic-icon">∑</span>
+                    <div>
+                        <small>Detected topic</small>
+                        <strong id="detail-topic">—</strong>
+                    </div>
+                    <span class="confidence" id="detail-confidence">—</span>
+                </section>
+
+                <section class="detail-block">
+                    <span>Answer source</span>
+                    <strong id="detail-source">—</strong>
+                    <p id="detail-source-copy">—</p>
+                </section>
+
+                <section class="detail-block" id="match-block">
+                    <span>Matched knowledge</span>
+                    <p class="match" id="detail-match">—</p>
+                    <div class="score-row"><span>Relevance</span><b id="detail-score">—</b></div>
+                </section>
+
+                <section class="system-card">
+                    <span class="status-dot"></span>
+                    <div>
+                        <strong>Hybrid intelligence active</strong>
+                        <p>Transformer · RAG · MLP classifier</p>
+                    </div>
+                </section>
+            </div>
+
+            <section class="runtime-card" id="runtime-card">
+                <p class="eyebrow">Runtime</p>
+                <div><span>Attention heads</span><b id="attention-heads">—</b></div>
+                <div><span>Knowledge entries</span><b id="knowledge-entries">—</b></div>
+                <div><span>Model load</span><b id="model-load-time">—</b></div>
+                <div><span>Last response</span><b id="response-time">—</b></div>
+                <div><span>Execution</span><b>WebAssembly</b></div>
+            </section>
+
+            <footer>
+                <strong>KeyIdea</strong>
+                <p>A custom educational AI built in C++.</p>
+                <span>Final school project · 2026</span>
+            </footer>
+        </aside>
+    </main>
+
+    <button class="backdrop" id="backdrop" type="button" aria-label="Close panel" hidden></button>
+    <script src="./app.js"></script>
+</body>
+</html>
