@@ -2,6 +2,8 @@
 
 This repository hosts the public browser demo of **KeyIdea**, a privacy-focused educational AI assistant built from scratch in C++ and compiled to WebAssembly.
 
+## [Open the live KeyIdea demo](https://toni31415.github.io/KeyIdea-Educational-AI/)
+
 ![KeyIdea browser interface](assets/keyidea-demo.png)
 
 ## What the demo shows
@@ -25,4 +27,3 @@ This public repository contains the compiled demonstration only. The C++ source 
 KeyIdea is an educational prototype and can make mistakes. Important results should be checked.
 
 Final school project, 2026.
-
